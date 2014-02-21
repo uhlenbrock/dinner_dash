@@ -1,0 +1,6 @@
+<h1><%= @item.title %> <span class="badge"><%= number_to_currency @item.price %></span></h1>
+
+<p><%= @item.description %></p>
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>
