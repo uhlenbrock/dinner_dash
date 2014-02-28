@@ -1,5 +1,11 @@
 <h1><%= @item.title %> <span class="badge"><%= number_to_currency @item.price %></span></h1>
 
+<% if @item.category %>
+  <p><strong>Category: </strong><%= @item.category.title %></p>
+<% end %>
+
+<%= image_tag @item.photo, class: 'thumbnail' if @item.photo.present? %>
+
 <p><%= @item.description %></p>
 
 <%= link_to 'Edit', edit_item_path(@item) %> |

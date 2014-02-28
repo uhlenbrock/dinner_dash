@@ -22,6 +22,7 @@
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <%= content_tag :li, link_to('Items', items_path) %>
+        <%= content_tag :li, link_to('Categories', categories_path) %>
       </ul>
     </div><!--/.nav-collapse -->
   </div>
@@ -31,6 +32,13 @@
   <p id="notice"><%= notice %></p>
   <%= yield %>
 </div>
+ 
+<footer>
+  <hr />
+  <div class="container">
+    <p>&copy; 2014 Dinner Dash. All rights reserved.</p>
+  </div>
+</footer>
   
 </body>
 </html>
