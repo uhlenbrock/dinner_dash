@@ -1,0 +1,8 @@
+<% if category.items.any? %>
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= link_to category.title, category_path(category) %></h3>
+  </div>
+  <ul class="list-group">
+    <%= render category.items %>
+  </ul>
+<% end %>

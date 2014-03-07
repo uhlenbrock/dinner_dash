@@ -1,0 +1,5 @@
+<li class="list-group-item">
+  <%= link_to item.title, item_path(item) %> 
+  <span class="text-muted"><%= truncate item.description, length: 80 %></span>
+  <span class="badge"><%= number_to_currency item.price %></span>
+</li>
