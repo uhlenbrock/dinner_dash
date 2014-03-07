@@ -23,6 +23,8 @@
       <ul class="nav navbar-nav">
         <%= content_tag :li, link_to('Items', items_path), class: active_section_class('items') %>
         <%= content_tag :li, link_to('Categories', categories_path), class: active_section_class('categories') %>
+        <%= content_tag :li, link_to('Orders', orders_path), class: active_section_class('orders') %>
+        <%= content_tag :li, link_to('Users', users_path), class: active_section_class('users') %>
         <%= content_tag :li, link_to('Menu', menu_index_path), class: active_section_class('menu') %>
         <%= content_tag :li, link_to('About', about_path), class: active_class(about_path) %>
         <%= content_tag :li, link_to('FAQs', faqs_path), class: active_class(faqs_path) %>
