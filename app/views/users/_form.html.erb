@@ -1,8 +1,9 @@
-<%= form_for(@user) do |f| %>
+<%= simple_form_for(@user) do |f| %>
+  
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
+      
       <ul>
       <% @user.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -10,8 +11,15 @@
       </ul>
     </div>
   <% end %>
-
+  
+  <%= f.input :name %>
+  <%= f.input :email %>
+  <%= f.input :password %>
+  <%= f.input :password_confirmation %>
+  
   <div class="actions">
-    <%= f.submit %>
+    <br />
+    <%= f.submit class: 'btn btn-primary' %>
   </div>
+  
 <% end %>

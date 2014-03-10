@@ -1,8 +1,9 @@
-<%= form_for(@order) do |f| %>
+<%= simple_form_for(@order) do |f| %>
+  
   <% if @order.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
-
+      
       <ul>
       <% @order.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -10,8 +11,12 @@
       </ul>
     </div>
   <% end %>
-
+  
+  <%= f.input :order_status, as: :select, collection: Order.order_statuses %>
+  
   <div class="actions">
-    <%= f.submit %>
+    <br />
+    <%= f.submit class: 'btn btn-primary' %>
   </div>
+  
 <% end %>

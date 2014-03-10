@@ -5,4 +5,29 @@ class Order < ActiveRecord::Base
   belongs_to :user
   has_and_belongs_to_many :items
   
+  # -------------------------------------- Validations
+  
+  validates_presence_of :user_id
+  validate :minimum_order_size
+  
+  # -------------------------------------- Callbacks
+  
+  # When a new order is saved, automatically set 
+  # the default order status
+  before_create do
+    self.order_status = Order.order_statuses.first
+  end
+  
+  # -------------------------------------- Instance Methods
+  
+  def minimum_order_size
+    errors.add(:items, 'must contain at least one') if items.none?
+  end
+  
+  # -------------------------------------- Class Methods
+  
+  def self.order_statuses
+    ['ordered', 'paid', 'cancelled', 'completed']
+  end
+  
 end

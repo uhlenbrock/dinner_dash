@@ -1,20 +1,22 @@
-<h1>Listing orders</h1>
+<h1>All Orders</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Date</th>
+      <th>User</th>
+      <th>Status</th>
+      <th>Actions</th>
     </tr>
   </thead>
 
   <tbody>
     <% @orders.each do |order| %>
       <tr>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= order.created_at %></td>
+        <td><%= order.user.name %></td>
+        <td><%= order.order_status %></td>
+        <td><%= link_to 'Edit', edit_order_path(order) %> | <%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

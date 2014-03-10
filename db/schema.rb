@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20140307161934) do
   end
 
   create_table "users", force: true do |t|
+    t.string   "name"
     t.string   "email"
     t.string   "password_digest"
     t.boolean  "admin",           default: false, null: false
