@@ -1,10 +1,13 @@
 class OrdersController < ApplicationController
+  
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :authorized_for_admin?, only: [:edit, :update, :destroy]
+  before_action :authorized?, only: [:new, :create, :index, :show]
 
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = is_admin? ? Order.all : current_user.orders
   end
 
   # GET /orders/1

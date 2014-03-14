@@ -23,8 +23,8 @@
       <ul class="nav navbar-nav">
         <%= content_tag :li, link_to('Items', items_path), class: active_section_class('items') if is_admin? %>
         <%= content_tag :li, link_to('Categories', categories_path), class: active_section_class('categories') if is_admin? %>
-        <%= content_tag :li, link_to('Orders', orders_path), class: active_section_class('orders') %>
-        <%= content_tag :li, link_to('Users', users_path), class: active_section_class('users') %>
+        <%= content_tag :li, link_to('Orders', orders_path), class: active_section_class('orders') if user_signed_in? %>
+        <%= content_tag :li, link_to('Users', users_path), class: active_section_class('users') if is_admin? %>
         <%= content_tag :li, link_to('Menu', menu_index_path), class: active_section_class('menu') %>
         <%= content_tag :li, link_to('About', about_path), class: active_class(about_path) %>
         <%= content_tag :li, link_to('FAQs', faqs_path), class: active_class(faqs_path) %>
@@ -32,7 +32,7 @@
       </ul>
       <% if current_user %>
         <p class="navbar-text navbar-right">
-          Signed in as <%= current_user.email %>. 
+          Signed in as <%= current_user.email %>.
           <%= link_to 'Edit Account', edit_user_path(current_user.id) %> or 
           <%= link_to 'Sign Out', signout_path %>
         </p>
@@ -45,9 +45,9 @@
     </div><!--/.nav-collapse -->
   </div>
 </div>
-  
+
 <div class="container">
-  
+
   <% unless flash.blank? %>
     <% flash.each do |type, message| %>
       <div class="alert <%= bootstrap_class_for(type) %> fade in">
@@ -56,17 +56,17 @@
       </div>
     <% end %>
   <% end %>
-  
+
   <%= yield %>
-  
+
 </div>
- 
+
 <footer>
   <hr />
   <div class="container">
     <p>&copy; 2014 Dinner Dash. All rights reserved.</p>
   </div>
 </footer>
-  
+
 </body>
 </html>

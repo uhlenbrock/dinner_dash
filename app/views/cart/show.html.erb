@@ -1,12 +1,21 @@
 <h1>Cart</h1>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Items</h3>
+<% if current_cart.empty? %>
+  <p>Your cart is empty. <%= link_to 'Have a look at the menu', menu_index_path %>.
+<% else %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Items</h3>
+    </div>
+    <ul class="list-group">
+      <% current_cart.items.each do |item| %>
+        <li class="list-group-item">
+          <%= link_to item.title, item_path(item) %>
+          (<%= link_to 'Remove', remove_item_cart_path(item), class: 'text-danger' %>)
+          <span class="text-muted"><%= truncate item.description, length: 80 %></span>
+          <span class="badge"><%= number_to_currency item.price %></span>
+        </li>
+      <% end %>
+    </ul>
   </div>
-  <ul class="list-group">
-    <% current_cart.items.each do |item| %>
-      <%= render item %>
-    <% end %>
-  </ul>
-</div>
+<% end %>
