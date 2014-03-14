@@ -1,0 +1,12 @@
+<h1>Cart</h1>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Items</h3>
+  </div>
+  <ul class="list-group">
+    <% current_cart.items.each do |item| %>
+      <%= render item %>
+    <% end %>
+  </ul>
+</div>

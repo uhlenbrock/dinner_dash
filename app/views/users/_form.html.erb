@@ -16,7 +16,8 @@
   <%= f.input :email %>
   <%= f.input :password %>
   <%= f.input :password_confirmation %>
-  
+  <%= f.input :admin if is_admin? %>
+
   <div class="actions">
     <br />
     <%= f.submit class: 'btn btn-primary' %>
