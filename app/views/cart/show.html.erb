@@ -1,8 +1,11 @@
 <h1>Cart</h1>
 
 <% if current_cart.empty? %>
+
   <p>Your cart is empty. <%= link_to 'Have a look at the menu', menu_index_path %>.
+    
 <% else %>
+    
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">Items</h3>
@@ -18,4 +21,11 @@
       <% end %>
     </ul>
   </div>
+
+  <%= simple_form_for(Order.new, html: {class: 'form-inline'}) do |f| %>
+    <%= f.input :pickup_at, default: 15.minutes.from_now %>
+    <br />
+    <%= f.submit 'Place Order', class: 'btn btn-primary' %>
+  <% end %>
+
 <% end %>

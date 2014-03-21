@@ -15,6 +15,7 @@ class Order < ActiveRecord::Base
   # When a new order is saved, automatically set 
   # the default order status
   before_create do
+    self.pickup_at  ||= Time.zone.now + 15.minutes
     self.order_status = Order.order_statuses.first
   end
   
@@ -28,6 +29,6 @@ class Order < ActiveRecord::Base
   
   def self.order_statuses
     ['ordered', 'paid', 'cancelled', 'completed']
-  end
+  end  
   
 end

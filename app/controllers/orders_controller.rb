@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
   
+  include ActionView::Helpers::DateHelper
+  
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   before_action :authorized_for_admin?, only: [:edit, :update, :destroy]
   before_action :authorized?, only: [:new, :create, :index, :show]
@@ -15,11 +17,6 @@ class OrdersController < ApplicationController
   def show
   end
 
-  # GET /orders/new
-  def new
-    @order = Order.new
-  end
-
   # GET /orders/1/edit
   def edit
   end
@@ -27,16 +24,15 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new(order_params)
-
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to orders_path, notice: 'Order was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @order }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
+    @order = current_user.orders.build(order_params)
+    @order.item_ids = current_cart.item_ids
+    if @order.save
+      current_cart.empty!
+      relative_time = distance_of_time_in_words Time.zone.now, @order.pickup_at
+      message = "Your order has been created. It will be ready for pickup in #{relative_time}."
+      redirect_to order_path(@order), notice: message
+    else
+      redirect_to cart_path, error: 'Order could not be created'
     end
   end
 
@@ -45,7 +41,7 @@ class OrdersController < ApplicationController
   def update
     respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
+        format.html { redirect_to orders_path, notice: 'Order was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -73,5 +69,12 @@ class OrdersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params[:order].permit!
+    end
+  
+    def authorized?
+      if !user_signed_in?
+        session[:return_to] = request.path
+        redirect_to signin_path, alert: 'You must sign in before checking out.'
+      end
     end
 end
