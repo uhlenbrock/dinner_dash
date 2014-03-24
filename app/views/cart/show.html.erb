@@ -3,9 +3,9 @@
 <% if current_cart.empty? %>
 
   <p>Your cart is empty. <%= link_to 'Have a look at the menu', menu_index_path %>.
-    
+
 <% else %>
-    
+
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">Items</h3>
@@ -20,6 +20,9 @@
         </li>
       <% end %>
     </ul>
+    <div class="panel-footer text-right">
+      Total: <strong><%= number_to_currency current_cart.total %></strong>
+    </div>
   </div>
 
   <%= simple_form_for(Order.new, html: {class: 'form-inline'}) do |f| %>

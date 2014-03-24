@@ -10,5 +10,8 @@
 
 <p><%= link_to 'Add to Cart', add_item_cart_path(@item), class: 'btn btn-primary' %></p>
 
-<%= link_to 'Edit', edit_item_path(@item) %> |
-<%= link_to 'Back', items_path %>
+
+<% if is_admin? %>
+  <%= link_to 'Edit', edit_item_path(@item) %> |
+  <%= link_to 'Back', items_path %>
+<% end %>

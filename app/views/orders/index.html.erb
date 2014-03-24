@@ -6,6 +6,7 @@
       <th>Date</th>
       <th>Status</th>
       <th>Pickup Time</th>
+      <th>Total</th>
       <% if is_admin? %>
         <th>User</th>
         <th>Actions</th>
@@ -19,10 +20,11 @@
         <td><%= link_to order.created_at, order_path(order) %></td>
         <td><%= order.order_status %></td>
         <td><%= order.pickup_at %></td>
+        <td><%= number_to_currency order.total %></td>
         <% if is_admin? %>
           <td><%= order.user.name %></td>
           <td><%= link_to 'Edit', edit_order_path(order) %> | <%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>  
+        <% end %>
     </tr>
     <% end %>
   </tbody>
