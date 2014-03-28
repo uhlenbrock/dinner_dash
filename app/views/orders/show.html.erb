@@ -1,5 +1,6 @@
 <h1>Order Detail</h1>
 
+<p><strong>Ordered By:</strong> <%= @order.user.name %> (<%= mail_to(@order.user.email) %>)
 <p><strong>Ordered At:</strong> <%= @order.created_at %></p>
 <p><strong>Pickup At:</strong> <%= @order.pickup_at %></p>
 <p><strong>Status:</strong> <%= @order.order_status.humanize %></p>
