@@ -7,6 +7,10 @@ class Item < ActiveRecord::Base
   validates :price, numericality: { only_integer: true, greater_than: 0 }
   validates_uniqueness_of :title, case_sensitive: false
   
+  # -------------------------------------- Scopes
+  
+  scope :active, -> { where(active: true) }
+  
   # -------------------------------------- Associations
   
   belongs_to :category

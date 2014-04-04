@@ -10,7 +10,9 @@ DinnerDash::Application.routes.draw do
   get 'cart',                 to: 'cart#show',   as: :cart
   get 'cart/:item_id/add',    to: 'cart#add',    as: :add_item_cart
   get 'cart/:item_id/remove', to: 'cart#remove', as: :remove_item_cart
-  
+
+  get 'orders/:id/remove/:item_id', to: 'orders#remove_item', as: :remove_item_order
+   
   get 'signup',  to: 'users#new'
   get 'signin',  to: 'sessions#new'
   get 'signout', to: 'sessions#destroy'

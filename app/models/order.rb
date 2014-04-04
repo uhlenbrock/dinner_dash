@@ -10,6 +10,10 @@ class Order < ActiveRecord::Base
   validates_presence_of :user_id
   validate :minimum_order_size
 
+  # -------------------------------------- Scopes
+  
+  scope :with_status, -> (status) { where(order_status: status) }
+  
   # -------------------------------------- Callbacks
 
   # When a new order is saved, automatically set
@@ -33,6 +37,10 @@ class Order < ActiveRecord::Base
 
   def self.order_statuses
     ['ordered', 'paid', 'cancelled', 'completed']
+  end
+  
+  def self.order_statuses_for_select
+    order_statuses.collect { |o| [o.humanize, o] }.unshift(['Show All', ''])
   end
 
 end

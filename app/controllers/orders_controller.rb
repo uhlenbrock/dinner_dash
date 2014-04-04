@@ -2,14 +2,22 @@ class OrdersController < ApplicationController
   
   include ActionView::Helpers::DateHelper
   
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
-  before_action :authorized_for_admin?, only: [:edit, :update, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :remove_item]
+  before_action :authorized_for_admin?, only: [:edit, :update, :destroy, :remove_item]
   before_action :authorized?, only: [:new, :create, :index, :show]
 
   # GET /orders
   # GET /orders.json
   def index
-    @orders = is_admin? ? Order.all : current_user.orders
+    if is_admin?
+      if !params[:order_status].blank?
+        @orders = Order.with_status(params[:order_status])
+      else
+        @orders = Order.all
+      end      
+    else
+      @orders = current_user.orders
+    end
   end
 
   # GET /orders/1
@@ -60,6 +68,12 @@ class OrdersController < ApplicationController
     end
   end
 
+  def remove_item
+    item = Item.find(params[:item_id])
+    @order.items.destroy(item) if item
+    redirect_to order_path(@order), alert: 'Item successfully removed.'
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
