@@ -1,9 +1,9 @@
 class OrdersController < ApplicationController
-  
+
   include ActionView::Helpers::DateHelper
-  
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :remove_item]
-  before_action :authorized_for_admin?, only: [:edit, :update, :destroy, :remove_item]
+
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :remove_item, :transition]
+  before_action :authorized_for_admin?, only: [:edit, :update, :destroy, :remove_item, :transition]
   before_action :authorized?, only: [:new, :create, :index, :show]
 
   # GET /orders
@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
         @orders = Order.with_status(params[:order_status])
       else
         @orders = Order.all
-      end      
+      end
     else
       @orders = current_user.orders
     end
@@ -73,7 +73,17 @@ class OrdersController < ApplicationController
     @order.items.destroy(item) if item
     redirect_to order_path(@order), alert: 'Item successfully removed.'
   end
-  
+
+  def transition
+    if Order.order_statuses.include? params[:order_status]
+      message = "Order successfully marked #{params[:order_status]}."
+      @order.update_attribute(:order_status, params[:order_status])
+    else
+      message = "Order could not be updated."
+    end
+    redirect_to orders_path, alert: message
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
@@ -84,7 +94,7 @@ class OrdersController < ApplicationController
     def order_params
       params[:order].permit!
     end
-  
+
     def authorized?
       if !user_signed_in?
         session[:return_to] = request.path
