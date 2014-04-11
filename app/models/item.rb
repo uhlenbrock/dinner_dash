@@ -11,6 +11,12 @@ class Item < ActiveRecord::Base
   
   scope :active, -> { where(active: true) }
   
+  # -------------------------------------- Callbacks
+  
+  before_create do
+    self.prep_time ||= 12
+  end
+  
   # -------------------------------------- Associations
   
   belongs_to :category

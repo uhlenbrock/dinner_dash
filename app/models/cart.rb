@@ -16,7 +16,9 @@ class Cart
   end
 
   def items
-    Item.find @session[:item_ids]
+    # TODO: Make this query more performant
+    # item_ids.collect { |i| Item.find(i) }
+    Item.where :id => item_ids
   end
 
   def item_ids
@@ -36,7 +38,11 @@ class Cart
   end
 
   def total
-    Item.where(id: item_ids).sum(:price)
+    items.sum(:price)
+  end
+  
+  def calculate_earliest_pickup_at
+    @calculate_earliest_pickup_at ||= Order.calculate_earliest_pickup_at(items)
   end
 
 end
