@@ -24,9 +24,6 @@ class Cart
       end
       collected_items
     end
-    # TODO: Make this query more performant
-    # item_ids.collect { |i| Item.find(i) }
-
   end
 
   def item_ids

@@ -1,10 +1,14 @@
 DinnerDash::Application.routes.draw do
 
+  resources :reviews
+
   resources :sessions
   resources :orders, except: [:new]
   resources :users
   resources :categories
-  resources :items
+  resources :items do
+    resources :reviews
+  end
   resources :menu, only: [:index]
 
   get 'cart',                 to: 'cart#show',   as: :cart

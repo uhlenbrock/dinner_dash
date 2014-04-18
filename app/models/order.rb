@@ -9,8 +9,8 @@ class Order < ActiveRecord::Base
 
   validates_presence_of :user_id
   validate :minimum_order_size
-  validate :earliest_pickup_at
-  validate :open_for_business
+  validate :earliest_pickup_at, on: :create
+  validate :open_for_business, on: :create
 
   # -------------------------------------- Scopes
 

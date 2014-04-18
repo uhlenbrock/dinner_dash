@@ -1,0 +1,27 @@
+<%= simple_form_for([@item, @review]) do |f| %>
+
+  <% if @review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
+
+      <ul>
+      <% @review.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.input :title %>
+  <%= f.input :body %>
+  <%= f.input :rating, as: :select, collection: Review.ratings %>
+  <%= f.hidden_field :user_id, value: current_user.id if user_signed_in? %>
+
+  <div class="actions">
+    <br />
+    <%= f.submit class: 'btn btn-primary' %>
+  </div>
+
+<% end %>
+
+
