@@ -16,9 +16,17 @@ class Cart
   end
 
   def items
+    @items ||= begin
+      returned_items = Item.where(id: item_ids)
+      collected_items = returned_items.clone.clear
+      item_ids.each do |i|
+        collected_items << returned_items.detect { |d| d.id == i.to_i }
+      end
+      collected_items
+    end
     # TODO: Make this query more performant
     # item_ids.collect { |i| Item.find(i) }
-    Item.where :id => item_ids
+
   end
 
   def item_ids
@@ -38,9 +46,9 @@ class Cart
   end
 
   def total
-    items.sum(:price)
+    items.sum(&:price)
   end
-  
+
   def calculate_earliest_pickup_at
     @calculate_earliest_pickup_at ||= Order.calculate_earliest_pickup_at(items)
   end
