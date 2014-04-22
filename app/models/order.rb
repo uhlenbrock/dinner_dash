@@ -25,6 +25,10 @@ class Order < ActiveRecord::Base
     self.order_status = Order.order_statuses.first
   end
 
+  after_create do
+    # OrderMailer.message(self).deliver
+  end
+  
   # -------------------------------------- Instance Methods
 
   def minimum_order_size
