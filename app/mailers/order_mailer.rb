@@ -1,12 +1,8 @@
 class OrderMailer < ActionMailer::Base
 
-  def message(order)
+  def new_message(order)
     @order = order
-    mail(to: @order.user.email,
-         from: "test@test.com",
-         subject: "Dinner Dash Order Confirmation")
+    mail(to: @order.user.email, from: "test@test.com", subject: "Dinner Dash Order Confirmation")
   end
-  
+
 end
-
-
