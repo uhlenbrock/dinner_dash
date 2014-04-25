@@ -26,7 +26,7 @@ class Order < ActiveRecord::Base
   end
 
   after_create do
-    # OrderMailer.message(self).deliver
+    OrderMailer.new_message(self).deliver
   end
   
   # -------------------------------------- Instance Methods
