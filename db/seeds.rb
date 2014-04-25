@@ -2,9 +2,11 @@
   Category.create title: c
 end
 
+Sale.create title: 'Appetizer Special', discount: 10
+
 Item.create title: 'Cheeseburger', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit', category: Category.find_by_title('Entrees'), price: 10
 Item.create title: 'Cobb Salad', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit', category: Category.find_by_title('Salads'), price: 10
-Item.create title: 'Shrimp Cocktail', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit', category: Category.find_by_title('Appetizers'), price: 5
+Item.create title: 'Shrimp Cocktail', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit', category: Category.find_by_title('Appetizers'), price: 5, sale: Sale.first
 Item.create title: 'Cheesecake', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit', category: Category.find_by_title('Desserts'), price: 10
 
 User.create name: 'Bobby Uhlenbrock', email: 'bobby@helloample.com', password: 'dinnerdash', password_confirmation: 'dinnerdash', admin: true

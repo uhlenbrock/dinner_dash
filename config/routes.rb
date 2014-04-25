@@ -1,7 +1,7 @@
 DinnerDash::Application.routes.draw do
 
+  resources :sales
   resources :reviews
-
   resources :sessions
   resources :orders, except: [:new]
   resources :users

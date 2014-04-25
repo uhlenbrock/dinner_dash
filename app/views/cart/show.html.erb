@@ -6,24 +6,7 @@
 
 <% else %>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">Items</h3>
-    </div>
-    <ul class="list-group">
-      <% current_cart.items.each do |item| %>
-        <li class="list-group-item">
-          <%= link_to item.title, item_path(item) %>
-          (<%= link_to 'Remove', remove_item_cart_path(item), class: 'text-danger' %>)
-          <span class="text-muted"><%= truncate item.description, length: 80 %></span>
-          <span class="badge"><%= number_to_currency item.price %></span>
-        </li>
-      <% end %>
-    </ul>
-    <div class="panel-footer text-right">
-      Total: <strong><%= number_to_currency current_cart.total %></strong>
-    </div>
-  </div>
+  <%= render partial: '/cart_items', object: current_cart %>
 
   <%= simple_form_for(Order.new, html: {class: 'form-inline'}) do |f| %>
     <span class="inline-help">The earliest available pickup time for this order is <%= distance_of_time_in_words Time.zone.now, current_cart.calculate_earliest_pickup_at %> from now.</span>

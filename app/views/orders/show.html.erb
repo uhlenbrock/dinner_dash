@@ -5,23 +5,6 @@
 <p><strong>Pickup At:</strong> <%= @order.pickup_at %></p>
 <p><strong>Status:</strong> <%= @order.order_status.humanize %></p>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Items</h3>
-  </div>
-  <ul class="list-group">
-    <% @order.items.each do |item| %>
-        <li class="list-group-item">
-          <%= link_to item.title, item_path(item) %>
-          <% if is_admin? && @order.cancelable? %>(<%= link_to 'Remove', remove_item_order_path(@order, item), class: 'text-danger' %>)<% end %>
-          <span class="text-muted"><%= truncate item.description, length: 80 %></span>
-          <span class="badge"><%= number_to_currency item.price %></span>
-        </li>
-      <% end %>
-  </ul>
-  <div class="panel-footer text-right">
-    Total: <strong><%= number_to_currency @order.total %></strong>
-  </div>
-</div>
+<%= render partial: '/cart_items', object: @order %>
 
 <%= link_to 'Back', orders_path %>
