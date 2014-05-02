@@ -28,7 +28,7 @@ class SalesController < ApplicationController
 
     respond_to do |format|
       if @sale.save
-        format.html { redirect_to @sale, notice: 'Sale was successfully created.' }
+        format.html { redirect_to sales_path, notice: 'Sale was successfully created.' }
         format.json { render action: 'show', status: :created, location: @sale }
       else
         format.html { render action: 'new' }

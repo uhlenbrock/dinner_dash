@@ -1,4 +1,5 @@
-<%= form_for(@sale) do |f| %>
+<%= simple_form_for(@sale) do |f| %>
+
   <% if @sale.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
@@ -11,7 +12,12 @@
     </div>
   <% end %>
 
+  <%= f.input :title %>
+  <%= f.input :discount %>
+
   <div class="actions">
-    <%= f.submit %>
+    <br />
+    <%= f.submit class: 'btn btn-primary' %>
   </div>
+
 <% end %>

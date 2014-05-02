@@ -1,4 +1,15 @@
-<p id="notice"><%= notice %></p>
+<h1><%= @sale.title %> <span class="badge"><%= @sale.discount %>%</span></h1>
+
+<% if @sale.items.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Items</h3>
+    </div>
+    <ul class="list-group">
+      <%= render @sale.items %>
+    </ul>
+  </div>
+<% end %>
 
 <%= link_to 'Edit', edit_sale_path(@sale) %> |
 <%= link_to 'Back', sales_path %>
