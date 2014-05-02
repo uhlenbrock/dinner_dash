@@ -18,7 +18,10 @@
 <% end %>
 
 <h2>Reviews <% if @item.reviews.any? %>(Average rating: <%= @item.average_rating %> stars)<% end %></h2>
-<%= render @item.reviews %>
+<%= page_entries_info @reviews %>
+<hr />
+<%= render @reviews %>
+<%= will_paginate @reviews, renderer: BootstrapPagination::Rails %>
 
 <h4>Add a Review</h4>
 <% if user_signed_in? %>

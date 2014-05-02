@@ -7,12 +7,13 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = Item.all
+    @items = Item.paginate(page: params[:page], per_page: per_page)
   end
 
   # GET /items/1
   # GET /items/1.json
   def show
+    @reviews = @item.reviews.paginate(page: params[:page], per_page: per_page)
   end
 
   # GET /items/new

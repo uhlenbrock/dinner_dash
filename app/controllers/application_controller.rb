@@ -8,8 +8,12 @@ class ApplicationController < ActionController::Base
 
   private
 
-    helper_method :current_cart, :current_user, :is_admin?, :user_signed_in?
-
+    helper_method :current_cart, :current_user, :is_admin?, :user_signed_in?, :per_page
+    
+    def per_page
+      params[:per_page] || 10
+    end
+  
     def miniprofiler
       Rack::MiniProfiler.authorize_request if is_admin?
     end
