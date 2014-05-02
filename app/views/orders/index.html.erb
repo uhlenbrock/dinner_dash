@@ -9,11 +9,13 @@
         <%= select_tag :order_status, options_for_select(Order.order_statuses_for_select, params[:order_status]), class: 'form-control' %>
       </div>
       <%= submit_tag 'Go!', class: 'btn btn-default' %>
+      <% cache 'order_statuses' do %>
       <ul class="list-inline pull-right">
       <% Order.order_statuses.each do |s| %>
         <li><%= s.humanize %>: <span class="badge"><%= Order.with_status(s).count %></span></li>
       <% end %>
       </ul>
+      <% end %>
     <% end %>
   </div>
 

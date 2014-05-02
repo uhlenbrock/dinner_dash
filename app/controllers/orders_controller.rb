@@ -11,9 +11,9 @@ class OrdersController < ApplicationController
   def index
     if is_admin?
       if !params[:order_status].blank?
-        @orders = Order.with_status(params[:order_status])
+        @orders = Order.includes(:user).with_status(params[:order_status])
       else
-        @orders = Order.all
+        @orders = Order.includes(:user).all
       end
     else
       @orders = current_user.orders
