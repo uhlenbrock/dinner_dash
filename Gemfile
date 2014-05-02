@@ -47,3 +47,5 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'simple_form'
 gem 'compass-rails'
 gem 'bootstrap-sass', '~> 3.1'
+
+gem 'rack-mini-profiler', group: :development
