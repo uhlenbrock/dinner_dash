@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140307161934) do
+ActiveRecord::Schema.define(version: 20140502143812) do
 
   create_table "categories", force: true do |t|
     t.string   "title"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "items_count", default: 0
   end
 
   create_table "items", force: true do |t|
@@ -28,6 +29,9 @@ ActiveRecord::Schema.define(version: 20140307161934) do
     t.datetime "updated_at"
     t.integer  "category_id"
     t.string   "photo"
+    t.boolean  "active",      default: true
+    t.integer  "prep_time"
+    t.integer  "sale_id"
   end
 
   create_table "items_orders", id: false, force: true do |t|
@@ -40,6 +44,26 @@ ActiveRecord::Schema.define(version: 20140307161934) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "pickup_at"
+  end
+
+  create_table "reviews", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "rating",     default: 1
+    t.integer  "user_id"
+    t.integer  "item_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sales", force: true do |t|
+    t.integer  "discount"
+    t.string   "title"
+    t.boolean  "active",      default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "items_count", default: 0
   end
 
   create_table "users", force: true do |t|

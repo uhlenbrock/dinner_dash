@@ -1,5 +1,6 @@
 <li class="list-group-item">
   <%= link_to item.title, item_path(item) %> 
+  (<%= link_to 'Add to Cart', add_item_cart_path(item), class: 'text-success' %>) 
   <span class="text-muted"><%= truncate item.description, length: 80 %></span>
-  <span class="badge"><%= number_to_currency item.price %></span>
+  <span class="badge"><%= item.display_price.html_safe %></span>
 </li>

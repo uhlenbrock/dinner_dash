@@ -1,0 +1,5 @@
+Ordered By: <%= @order.user.name %> (<%= mail_to(@order.user.email) %>)
+Ordered At: <%= @order.created_at %>
+Pickup At: <%= @order.pickup_at %>
+Status: <%= @order.order_status.humanize %>
+Total: <%= number_to_currency @order.total %>

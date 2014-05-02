@@ -1,0 +1,22 @@
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Items</h3>
+    </div>
+    <ul class="list-group">
+      <% cart_items.items.each do |item| %>
+        <li class="list-group-item">
+          <%= link_to item.title, item_path(item) %>
+          (<%= link_to 'Remove', remove_item_cart_path(item), class: 'text-danger' %>)
+          <span class="text-muted"><%= truncate item.description, length: 80 %></span>
+          <span class="badge"><%= item.display_price.html_safe %></span>
+        </li>
+      <% end %>
+    </ul>
+    <div class="panel-footer text-right">
+      <% if cart_items.items_on_sale? %>
+        Subtotal: <strong><%= number_to_currency cart_items.subtotal %></strong><br />
+        Discount: <strong>-<%= number_to_currency cart_items.discount_total %></strong><br />
+      <% end %>
+      Total: <strong><%= number_to_currency cart_items.total %></strong>
+    </div>
+  </div>

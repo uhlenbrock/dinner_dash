@@ -1,5 +1,7 @@
 class Cart
-
+  
+  include ItemCalculation
+  
   def initialize(session)
     @session = session
     @session[:item_ids] ||= []
@@ -16,7 +18,18 @@ class Cart
   end
 
   def items
-    Item.find @session[:item_ids]
+    @items ||= begin
+      returned_items = Item.where(id: item_ids)
+      collected_items = returned_items.clone.clear
+      item_ids.each do |i|
+        collected_items << returned_items.detect { |d| d.id == i.to_i }
+      end
+      collected_items
+    end
+  end
+
+  def item_ids
+    @session[:item_ids]
   end
 
   def items_count
@@ -25,6 +38,10 @@ class Cart
 
   def empty?
     @session[:item_ids].empty?
+  end
+
+  def empty!
+    @session[:item_ids] = []
   end
 
 end

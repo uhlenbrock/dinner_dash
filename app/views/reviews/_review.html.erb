@@ -1,0 +1,5 @@
+<%= content_tag :h4, "#{review.title} (#{review.rating} stars)" %>
+<%= content_tag :p, review.body %>
+<%= content_tag :cite, review.user.name %>
+<%= link_to 'Edit', edit_item_review_path(@item, review) if review.editable_for?(current_user) %>
+<hr />

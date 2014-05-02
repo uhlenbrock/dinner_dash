@@ -5,6 +5,7 @@
     <tr>
       <th>Title</th>
       <th>Price</th>
+      <th>Active?</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -14,6 +15,7 @@
       <tr>
         <td><%= link_to item.title, item_path(item) %></td>
         <td><%= number_to_currency item.price %></td>
+        <td><%= item.active? ? 'Yes' : 'No' %>
         <td><%= link_to 'Edit', edit_item_path(item) %> | <%= link_to 'Delete', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -22,4 +24,6 @@
 
 <br>
 
-<%= link_to 'New Item', new_item_path %>
+<p><%= link_to 'New Item', new_item_path %></p>
+
+<%= will_paginate @items, renderer: BootstrapPagination::Rails %>

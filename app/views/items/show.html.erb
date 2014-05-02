@@ -1,4 +1,4 @@
-<h1><%= @item.title %> <span class="badge"><%= number_to_currency @item.price %></span></h1>
+<h1><%= @item.title %> <span class="badge"><%= @item.display_price.html_safe %></span></h1>
 
 <% if @item.category %>
   <p><strong>Category: </strong><%= @item.category.title %></p>
@@ -8,7 +8,28 @@
 
 <p><%= @item.description %></p>
 
-<p><%= link_to 'Add to Cart', add_item_cart_path(@item), class: 'btn btn-primary' %></p>
+<% if @item.active? %>
+  <p><%= link_to 'Add to Cart', add_item_cart_path(@item), class: 'btn btn-primary' %></p>
+<% end %>
 
-<%= link_to 'Edit', edit_item_path(@item) %> |
-<%= link_to 'Back', items_path %>
+<% if is_admin? %>
+  <%= link_to 'Edit', edit_item_path(@item) %> |
+  <%= link_to 'Back', items_path %>
+<% end %>
+
+<h2>Reviews <% if @item.reviews.any? %>(Average rating: <%= @item.average_rating %> stars)<% end %></h2>
+<%= page_entries_info @reviews %>
+<hr />
+<%= render @reviews %>
+<%= will_paginate @reviews, renderer: BootstrapPagination::Rails %>
+
+<h4>Add a Review</h4>
+<% if user_signed_in? %>
+  <% if current_user.has_purchased?(@item) %>
+    <%= render 'reviews/form' %>
+  <% else %>
+    <p>You must order the item before you may add a review.</p>
+  <% end %>
+<% else %>
+  <p><%= link_to('Sign in', signin_path) %> to add a review.</p>
+<% end %>
